@@ -165,6 +165,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
   //CREATESALE FUNCTION
   const createSale = async (url, formInputPrice, isReslleing, id) => {
     try {
+      console.log(url, formInputPrice, isReslleing, id);
       const price = ethers.utils.parseUnits(formInputPrice, "ether");
       const contract = await connectingWithSmartContract();
 
@@ -189,9 +190,9 @@ export const NFTMarketplaceProvider = ({ children }) => {
   const fetchNFTs = async () => {
     try {
       if (currentAccount) {
-        const provider = new ethers.providers.JsonRpcProvider(
-          "https://polygon-mumbai.g.alchemy.com/v2/g6mv1ccIQR7sdDfOZg6x7RgtSF8FYdLM"
-        );
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
 
         console.log(provider);
         const contract = fetchContract(provider);
